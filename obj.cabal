@@ -19,7 +19,6 @@ build-type:          Simple
 
 Library
   Build-Depends:        base              >= 3.0,
-                        haskell98         >= 1.0,
                         QuickCheck        >= 1.1,
                         graphicsFormats   >= 0.1,
                         OpenGL            >= 2.2,

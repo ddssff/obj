@@ -17,9 +17,7 @@ module Graphics.Formats.Obj
 
 import Data.Binary
 
-import Control.Applicative
-
-import System.Directory
+import System.Directory hiding (findFile)
 import System.FilePath
 
 import qualified Data.Map as M

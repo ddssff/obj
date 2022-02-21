@@ -23,8 +23,6 @@ import Data.ByteString.Internal
 import qualified Data.ByteString.Char8  as CBS
 import qualified Data.ByteString.Unsafe as BS
 
-import Data.Maybe
-
 import Control.Applicative hiding ((<|>))
 import Control.Applicative.Infix
 

@@ -19,7 +19,7 @@ import Test.QuickCheck
 
 import Data.Maybe hiding (fromJust)
 
-import           Data.Binary
+import           Data.Binary hiding (putList)
 import           Data.Binary.Get
 import           Data.Binary.Put
 
@@ -27,7 +27,6 @@ import qualified Data.ByteString.Lazy  as LBS
 import qualified Data.ByteString.Char8 as CBS
 
 import Control.Monad
-import Control.Applicative
 
 instance Binary ObjFile where
   put (OF sts) =

@@ -10,7 +10,6 @@ build-type:          Simple
 
 Executable loadModel
   Build-Depends:        obj               >= 0.1,
-                        haskell98         >= 1.0,
                         base              >= 3,
                         filepath          >= 1.1,
                         FieldTrip         >= 0.1,

@@ -11,18 +11,11 @@
 -- 
 -- Describes the concrete syntax of an Obj file
 ----------------------------------------------------------------------
-module Graphics.Formats.Obj.Contents
-       (ObjFile(..),Statement(..),VTriple(..),VDouble(..)
-       ,isVertex,isNormal,isTexCoord
-       ,isPoints,isLines,isFace,isObject
-       ,isUseMtl,isSmoothG
-       ,contentsTests) where
+module Graphics.Formats.Obj.Contents where
 
 import Test.QuickCheck
 import Test.QuickCheck.Instances
 
-import Control.Monad
-import Control.Applicative
 import Control.Applicative.Infix
 
 import qualified Data.ByteString.Char8 as CBS
@@ -32,6 +25,7 @@ newtype ObjFile = OF [Statement]
 
 instance Arbitrary ObjFile where
   arbitrary          = OF <$> arbitrary
+instance CoArbitrary ObjFile where
   coarbitrary (OF x) = coarbitrary x
 
 data Statement = V      !Float !Float !Float !Float
@@ -62,6 +56,7 @@ instance Arbitrary Statement where
           ,F  <$> (nonEmpty arbitrary)
           ,(G . map CBS.pack) <$> (nonEmpty (nonEmpty (notOneof " \t\n\r#")))
           ,SG <$> positive]
+instance CoArbitrary Statement where
   coarbitrary (V x y z w) =
     coarbitrary x . coarbitrary y . coarbitrary z . coarbitrary w
   coarbitrary (VN x y z)  =
@@ -78,10 +73,12 @@ instance Arbitrary Statement where
   
 instance Arbitrary VTriple where
   arbitrary = VTr <$> positive <*> maybeGen positive <*> maybeGen positive
+instance CoArbitrary VTriple where
   coarbitrary (VTr v t n) = coarbitrary v . coarbitrary t . coarbitrary n
 
 instance Arbitrary VDouble where
   arbitrary            = VD <$> positive <*> maybeGen positive
+instance CoArbitrary VDouble where
   coarbitrary (VD v t) = coarbitrary v . coarbitrary t
 
 isNormal, isTexCoord, isVertex, isPoints , isLines :: Statement -> Bool

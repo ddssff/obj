@@ -1,4 +1,4 @@
-{-# LANGUAGE NoMonomorphismRestriction, TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances, NoMonomorphismRestriction, TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wall -funbox-strict-fields #-}
 ----------------------------------------------------------------------
 -- |
@@ -36,7 +36,6 @@ import           Data.IntMap    (IntMap)
 import qualified Data.IntMap as IM
 
 import Control.Monad
-import Control.Applicative
 
 data ObjModel = OM BufferSet [FObject]
                    deriving (Show)
@@ -81,6 +80,7 @@ instance Eq ObjModel where
 
 instance Arbitrary ObjModel where
   arbitrary = OM <$> ((>**<) arbitrary arbitrary arbitrary) <*> arbitrary
+instance CoArbitrary ObjModel where
   coarbitrary (OM (v,t,n) os) =
     coarbitrary v . coarbitrary t . coarbitrary n . coarbitrary os
 
@@ -92,6 +92,7 @@ instance Arbitrary (FObject) where
                                <*> (setLength 4 arbitrary)
                     ,OLine     <$> (nonEmpty arbitrary)
                     ,OPoint    <$> (nonEmpty positive)]
+instance CoArbitrary (FObject) where
   coarbitrary (OFace     _ n) = coarbitrary n
   coarbitrary (OTriangle _ n) = coarbitrary n
   coarbitrary (OQuad     _ n) = coarbitrary n
@@ -100,6 +101,7 @@ instance Arbitrary (FObject) where
 
 instance Arbitrary NVTriple where
   arbitrary = NVT <$> positive <*> maybeGen positive <*> positive
+instance CoArbitrary NVTriple where
   coarbitrary (NVT v t n) = coarbitrary v . coarbitrary t . coarbitrary n
 
 instance Renderable ObjModel where

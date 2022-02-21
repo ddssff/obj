@@ -28,7 +28,6 @@ import Foreign hiding (newArray)
 import Data.Array.Unboxed
 
 import Graphics.Rendering.OpenGL
-import Control.Applicative
 import Control.Monad
 
 import Test.QuickCheck
@@ -64,6 +63,7 @@ instance Arbitrary Material where
                                      arbitrary)
                              (anyList nonSpace))
                      (CBS.pack <$> anyList nonSpace)
+instance CoArbitrary Material where
   coarbitrary m =   coarbitrary (CBS.unpack $ name m)
                   . coarbitrary (matFile m)
                   . coarbitrary (ambientColour  m)
@@ -138,7 +138,7 @@ buildTexture arr =
      textureWrapMode Texture2D T $= (Repeated, Repeat) 
      
      let pd = PixelData RGBA UnsignedByte p
-     texImage2D Nothing
+     texImage2D Texture2D
                 NoProxy
                 0
                 RGBA'
