@@ -1,0 +1,20 @@
+                                     mkbndl
+                                     ======
+
+Generates OS X .app bundles from binaries.
+
+Install:
+========
+> runhaskell Setup.lhs configure
+> runhaskell Setup.lhs build
+> runhaskell Setup.lhs install (as root)
+
+Documentation:
+==============
+> runhaskell Setup.lhs haddock --executables
+
+or
+
+> mkbndl --help
+
+Copyright (c) 2008 Thomas Davie

@@ -1,0 +1,24 @@
+Name:                loadObject
+Cabal-Version:       >= 1.2
+Version:             0.1
+Synopsis:            Demo of obj loading with the obj package.
+Description:         Demo of obj loading with the obj package.
+Author:              Thomas Davie
+Maintainer:          Thomas Davie (tom.davie@gmail.com)
+Category:            Graphics
+build-type:          Simple
+
+Executable loadModel
+  Build-Depends:        obj               >= 0.1,
+                        haskell98         >= 1.0,
+                        base              >= 3,
+                        filepath          >= 1.1,
+                        FieldTrip         >= 0.1,
+                        reactive          >= 0.8.3,
+                        reactive-glut     >= 0.0.1,
+                        Codec-Image-DevIL >= 0.1,
+                        OpenGL            >= 2.2,
+                        graphicsFormats   >= 0.1,
+                        InfixApplicative  >= 1.0
+  Ghc-Options:          -O2
+  Main-is:              LoadObject.hs
